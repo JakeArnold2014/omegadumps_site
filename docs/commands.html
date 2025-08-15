@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Bot Commands - OMEGABOT</title>
+    <title>Discord Bot Commands - OSRS Price Monitor</title>
     <style>
         * {
             margin: 0;
@@ -236,7 +236,7 @@
         }
 
         .notes-section h2, .tips-section h2 {
-            color: #2d3748;
+            color: #ffffff;
             font-size: 1.5em;
             font-weight: 700;
             margin-bottom: 20px;
@@ -273,11 +273,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-        }
-
-        /* Override any light theme styles from base template */
-        .commands-page * {
-            color: inherit;
         }
 
         @media (max-width: 768px) {
@@ -317,753 +312,509 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="/" class="nav-logo">OMEGABOT</a>
+            <a href="/" class="nav-logo">OSRS Price Monitor</a>
             <ul class="nav-menu">
-                <li><a href="/omegadumps_site/commands.html" class="nav-link">Commands</a></li>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/list" class="nav-link">Item List</a></li>
+                <li><a href="/commands" class="nav-link">Commands</a></li>
             </ul>
         </div>
     </nav>
 
     <div class="container">
-<div class="container">
-    <div class="commands-page">
-        <h1>Discord Bot Commands Reference</h1>
-        <p class="commands-intro">This document lists all available slash commands for Omegabot.</p>
-        
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('portfolio')">
-                Portfolio Management Commands <span class="dropdown-arrow" id="portfolio-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="portfolio-cards">
+        <div class="commands-page">
+            <h1>Discord Bot Commands Reference</h1>
+            <p class="commands-intro">This document lists all available slash commands for Omegabot.</p>
             
-            <div class="command-card">
-                <h3>/add</h3>
-                <p class="command-description">Add an item to your portfolio.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('portfolio')">
+                    Portfolio Management Commands <span class="dropdown-arrow" id="portfolio-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="portfolio-cards">
+                
+                <div class="command-card">
+                    <h3>/portfolio add</h3>
+                    <p class="command-description">Add an item to your portfolio.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>item</code> (string): Item name or ID</li>
+                            <li><code>buy_price</code> (integer): Buy price</li>
+                            <li><code>quantity</code> (integer): Quantity bought</li>
+                            <li><code>target_price</code> (integer, optional): Target price for alert (optional)</li>
+                            <li><code>stop_loss</code> (integer, optional): Stop loss price for alert (optional)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/portfolio remove</h3>
+                    <p class="command-description">Remove an item from your portfolio interactively.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li>Interactive selection - no parameters required</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/portfolio view</h3>
+                    <p class="command-description">View your current portfolio.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>show_history</code> (boolean, optional): Show buy price history for each item?</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/portfolio edit_alerts</h3>
+                    <p class="command-description">Edit the target or stop loss for an item in your portfolio.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li>Interactive selection - no parameters required</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/portfolio edit_history</h3>
+                    <p class="command-description">Edit a buy history entry for an item in your portfolio.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li>Interactive selection - no parameters required</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/portfolio trends</h3>
+                    <p class="command-description">Show price trends for all items in your portfolio over the last 7 days.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li>No parameters required</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/portfolio graphs</h3>
+                    <p class="command-description">Generate price graphs for all items in your portfolio from their purchase dates.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li>No parameters required</li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('price')">
+                    Price Information Commands <span class="dropdown-arrow" id="price-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="price-cards">
+                
+                <div class="command-card">
+                    <h3>/price</h3>
+                    <p class="command-description">Get current price and associated info for an item.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>item</code> (string): Item name</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/trend</h3>
+                    <p class="command-description">Show price change for an item over a period.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>item</code> (string): Item name or ID</li>
+                            <li><code>period</code> (string, optional): Time period (e.g. 7d, 24h, 1h, 30d, 6m, 12m) (default: 7d)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/trend-category</h3>
+                    <p class="command-description">Show price change for a set of items (category) over a period.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>category</code> (choice): Item set to use</li>
+                            <li><code>period</code> (string, optional): Time period (e.g. 7d, 24h, 1h, 30d, 6m, 12m) (default: 7d)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/graph</h3>
+                    <p class="command-description">Generate a price graph for an item with custom timeframe (up to 10 years).</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>item</code> (string): Item Name</li>
+                            <li><code>timeframe</code> (string, optional): Timeframe (e.g., '30 minutes', '24 hours', '7 days', '1 month', '2 years', '10 years'). Default: 24 hours</li>
+                            <li><code>theme</code> (string, optional): Color theme for the graph (optional)</li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('recipe')">
+                    Recipe and Crafting Commands <span class="dropdown-arrow" id="recipe-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="recipe-cards">
+                
+                <div class="command-card">
+                    <h3>/recipe</h3>
+                    <p class="command-description">Get current price and values for a specific recipe.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>recipe</code> (string): Recipe name</li>
+                            <li><code>strategy</code> (choice): Strategy to use for calculations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/recipe-find-profitable</h3>
+                    <p class="command-description">Find all profitable recipes based on current market prices.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>strategy</code> (choice): Strategy to use for calculations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/recipe-favorites-add</h3>
+                    <p class="command-description">Add a recipe to your favorites list.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>recipe</code> (string): Recipe name to add to favorites</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/recipe-favorites-remove</h3>
+                    <p class="command-description">Remove a recipe from your favorites list.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li>Interactive selection of recipe</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/recipe-favorites-list</h3>
+                    <p class="command-description">View your favorite recipes list.</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/recipe-favorites-analyze</h3>
+                    <p class="command-description">Analyze all your favorite recipes with current prices.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>strategy</code> (choice): Strategy to use for calculations</li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('decant')">
+                    Decanting Commands <span class="dropdown-arrow" id="decant-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="decant-cards">
+                
+                <div class="command-card">
+                    <h3>/decant-find-profitable</h3>
+                    <p class="command-description">Get a list of currently profitable decanting opportunities.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>strategy</code> (choice): Strategy to use for calculations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/decant</h3>
+                    <p class="command-description">Get current price and values for decanting chosen potion.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>potion</code> (string): Potion name</li>
+                            <li><code>strategy</code> (choice): Strategy to use for calculations</li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('misc')">
+                    Misc Commands <span class="dropdown-arrow" id="misc-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="misc-cards">
+                
+                <div class="command-card">
+                    <h3>/notify</h3>
+                    <p class="command-description">Notify you when an item's price goes above or below a threshold.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>item</code> (string): Item name or numeric ID of the item</li>
+                            <li><code>price</code> (integer): Price (in GP) at which you want to be alerted</li>
+                            <li><code>direction</code> (choice): Whether to alert when price is above or below this value
+                                <ul>
+                                    <li>Above</li>
+                                    <li>Below</li>
+                                </ul>
+                            </li>
+                            <li><code>price_type</code> (choice, optional): Which price to monitor
+                                <ul>
+                                    <li>Either (both)</li>
+                                    <li>Instabuy (high)</li>
+                                    <li>Instasell (low)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/notifications</h3>
+                    <p class="command-description">View and remove your current price alert notifications.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li>No parameters required</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/deathscoffer</h3>
+                    <p class="command-description">Find the best items to sacrifice to deaths coffer.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>strategy</code> (choice): Select the buy strategy
+                                <ul>
+                                    <li>Insta Buy (high price)</li>
+                                    <li>Slow Buy (low price)</li>
+                                </ul>
+                            </li>
+                            <li><code>freshness_minutes</code> (integer, optional): Maximum age of price data in minutes (default: 30 minutes)</li>
+                            <li><code>minimum_difference</code> (integer, optional): Minimum difference (gp) between sacrifice and buy price (default: 20,000)</li>
+                            <li><code>min_price</code> (integer, optional): Minimum GE price for an item to be considered (default: 10,000)</li>
+                            <li><code>max_price</code> (integer, optional): Maximum GE price for an item to be considered (default: 100,000,000)</li>
+                            <li><code>min_margin_x_volume</code> (integer, optional): Minimum (margin x 24h volume) for an item to be considered (default: 2,000,000)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/uptime</h3>
+                    <p class="command-description">Displays the current uptime of the bot.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li>No parameters required</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/checkstats</h3>
+                    <p class="command-description">Check dump statistics for an item over a timeframe.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>item</code> (string): Item name or ID to check statistics for</li>
+                            <li><code>timeframe</code> (choice): Timeframe to analyze
+                                <ul>
+                                    <li>1 Hour</li>
+                                    <li>6 Hours</li>
+                                    <li>12 Hours</li>
+                                    <li>24 Hours</li>
+                                    <li>7 Days</li>
+                                    <li>All Time</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/find-margins-beta</h3>
+                    <p class="command-description">Find the top 10 margins using current market prices.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>freshness_minutes</code> (integer, optional): Maximum age of price data in minutes (default: 60, max: 1440)</li>
+                            <li><code>min_margin</code> (integer, optional): Minimum margin threshold in GP (default: 1000)</li>
+                            <li><code>minimum_buy_price</code> (integer, optional): Minimum buy value in GP (default: 1)</li>
+                            <li><code>maximum_buy_price</code> (integer, optional): Maximum buy value in GP (default: 2,147,483,647)</li>
+                            <li><code>minimum_roi</code> (float, optional): Minimum ROI percentage (default: 2.0)</li>
+                            <li><code>sort_by_limit_profit</code> (boolean, optional): Sort by limit profit (default: False)</li>
+                            <li><code>min_margin_volume</code> (integer, optional): Minimum margin × volume score (default: 500,000, higher = more liquid items)</li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('flipping')">
+                    Flipping Utility File Management Commands <span class="dropdown-arrow" id="flipping-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="flipping-cards">
+                
+                <div class="command-card">
+                    <h3>/edit_flipping_file</h3>
+                    <p class="command-description">Select and edit an item entry from a flipping JSON file.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>file</code> (attachment): Upload your flipping JSON file found at &lt;user&gt;/.runelite/flipping</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/combine_flipping_files</h3>
+                    <p class="command-description">Upload multiple flipping JSON files and combine them into one.</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/add_trade_entry</h3>
+                    <p class="command-description">Add trade entries for an item to a flipping JSON file.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>file</code> (attachment): Upload your flipping JSON file</li>
+                            <li><code>item_name</code> (string): Name of the item to add trades for</li>
+                            <li><code>quantity</code> (integer): Quantity to add</li>
+                            <li><code>price</code> (integer): Price per item</li>
+                            <li><code>status</code> (string): Status (BOUGHT or SOLD)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/delete_trade_entries</h3>
+                    <p class="command-description">Delete trade entries for an item from a flipping JSON file interactively.</p>
+                    <div class="command-params">
+                        <h4>Parameters:</h4>
+                        <ul>
+                            <li><code>file</code> (attachment): Upload your flipping JSON file</li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('notes')">
+                    Notes <span class="dropdown-arrow" id="notes-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="notes-cards">
+                <div class="notes-section">
                     <ul>
-                        <li><code>item</code> (string): Item name or ID</li>
-                        <li><code>buy_price</code> (integer): Buy price</li>
-                        <li><code>quantity</code> (integer): Quantity bought</li>
-                        <li><code>target_price</code> (integer, optional): Target price for alert (optional)</li>
-                        <li><code>stop_loss</code> (integer, optional): Stop loss price for alert (optional)</li>
+                        <li><strong>DM Only Commands:</strong> Some commands (like flipping utility commands) can only be used in direct messages with the bot, not in servers.</li>
+                        <li><strong>Autocomplete:</strong> Most commands support autocomplete for item names and other parameters.</li>
+                        <li><strong>Permissions:</strong> Some commands may require specific roles or permissions to use.</li>
+                        <li><strong>Hidden Commands:</strong> There are additional hidden commands available to administrators and bot owners that are not listed here as they are not intended for general use.</li>
                     </ul>
                 </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/remove</h3>
-                <p class="command-description">Remove an item from your portfolio interactively.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li>Interactive selection - no parameters required</li>
-                    </ul>
                 </div>
-            </div>
+            </section>
 
-            <div class="command-card">
-                <h3>/view</h3>
-                <p class="command-description">View your current portfolio.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>show_history</code> (boolean, optional): Show buy price history for each item?</li>
-                    </ul>
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('tips')">
+                    Usage Tips <span class="dropdown-arrow" id="tips-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="tips-cards">
+                <div class="tips-section">
+                    <ol>
+                        <li><strong>Item Names:</strong> You can use either item names or numeric IDs for most commands that require an item parameter.</li>
+                        <li><strong>Time Periods:</strong> For trend commands, use formats like "7d" (7 days), "24h" (24 hours), "1h" (1 hour), etc.</li>
+                        <li><strong>File Uploads:</strong> For flipping utility commands, make sure to upload valid JSON files from your RuneLite flipping folder.</li>
+                        <li><strong>Portfolio Management:</strong> Use the portfolio commands to track your investments and set price alerts.</li>
+                        <li><strong>Recipe Analysis:</strong> The recipe commands help you find profitable crafting opportunities in the current market.</li>
+                    </ol>
                 </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/edit_alerts</h3>
-                <p class="command-description">Edit the target or stop loss for an item in your portfolio.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li>Interactive selection - no parameters required</li>
-                    </ul>
                 </div>
-            </div>
+            </section>
 
-            <div class="command-card">
-                <h3>/edit_history</h3>
-                <p class="command-description">Edit a buy history entry for an item in your portfolio.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li>Interactive selection - no parameters required</li>
-                    </ul>
+            <section class="command-section">
+                <h2 class="section-header" onclick="toggleSection('support')">
+                    Support <span class="dropdown-arrow" id="support-arrow">▼</span>
+                </h2>
+                <div class="command-cards" id="support-cards">
+                    <p>If you encounter any issues with these commands or need additional help, please contact the bot administrator or check the server's help channels.</p>
                 </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/trends</h3>
-                <p class="command-description">Show price trends for all items in your portfolio over the last 7 days.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li>No parameters required</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/graphs</h3>
-                <p class="command-description">Generate price graphs for all items in your portfolio from their purchase dates.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li>No parameters required</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('price')">
-                Price Information Commands <span class="dropdown-arrow" id="price-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="price-cards">
-            
-            <div class="command-card">
-                <h3>/price</h3>
-                <p class="command-description">Get current price and associated info for an item.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>item</code> (string): Item name</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/trend</h3>
-                <p class="command-description">Show price change for an item over a period.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>item</code> (string): Item name or ID</li>
-                        <li><code>period</code> (string, optional): Time period (e.g. 7d, 24h, 1h, 30d, 6m, 12m) (default: 7d)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/trend-category</h3>
-                <p class="command-description">Show price change for a set of items (category) over a period.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>category</code> (choice): Item set to use</li>
-                        <li><code>period</code> (string, optional): Time period (e.g. 7d, 24h, 1h, 30d, 6m, 12m) (default: 7d)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/graph</h3>
-                <p class="command-description">Generate a price graph for an item with custom timeframe (up to 10 years).</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>item</code> (string): Item Name</li>
-                        <li><code>timeframe</code> (string, optional): Timeframe (e.g., '30 minutes', '24 hours', '7 days', '1 month', '2 years', '10 years'). Default: 24 hours</li>
-                        <li><code>theme</code> (string, optional): Color theme for the graph (optional)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('recipe')">
-                Recipe and Crafting Commands <span class="dropdown-arrow" id="recipe-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="recipe-cards">
-            
-            <div class="command-card">
-                <h3>/recipe</h3>
-                <p class="command-description">Get current price and values for a specific recipe.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>recipe</code> (string): Recipe name</li>
-                        <li><code>strategy</code> (choice): Strategy to use for calculations</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/recipe-find-profitable</h3>
-                <p class="command-description">Find all profitable recipes based on current market prices.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>strategy</code> (choice): Strategy to use for calculations</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/recipe-favorites-add</h3>
-                <p class="command-description">Add a recipe to your favorites list.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>recipe</code> (string): Recipe name to add to favorites</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/recipe-favorites-remove</h3>
-                <p class="command-description">Remove a recipe from your favorites list.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li>Interactive selection of recipe</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/recipe-favorites-list</h3>
-                <p class="command-description">View your favorite recipes list.</p>
-            </div>
-
-            <div class="command-card">
-                <h3>/recipe-favorites-analyze</h3>
-                <p class="command-description">Analyze all your favorite recipes with current prices.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>strategy</code> (choice): Strategy to use for calculations</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('decant')">
-                Decanting Commands <span class="dropdown-arrow" id="decant-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="decant-cards">
-            
-            <div class="command-card">
-                <h3>/decant-find-profitable</h3>
-                <p class="command-description">Get a list of currently profitable decanting opportunities.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>strategy</code> (choice): Strategy to use for calculations</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/decant</h3>
-                <p class="command-description">Get current price and values for decanting chosen potion.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>potion</code> (string): Potion name</li>
-                        <li><code>strategy</code> (choice): Strategy to use for calculations</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('misc')">
-                Misc Commands <span class="dropdown-arrow" id="misc-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="misc-cards">
-            
-            <div class="command-card">
-                <h3>/notify</h3>
-                <p class="command-description">Notify you when an item's price goes above or below a threshold.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>item</code> (string): Item name or numeric ID of the item</li>
-                        <li><code>price</code> (integer): Price (in GP) at which you want to be alerted</li>
-                        <li><code>direction</code> (choice): Whether to alert when price is above or below this value
-                            <ul>
-                                <li>Above</li>
-                                <li>Below</li>
-                            </ul>
-                        </li>
-                        <li><code>price_type</code> (choice, optional): Which price to monitor
-                            <ul>
-                                <li>Either (both)</li>
-                                <li>Instabuy (high)</li>
-                                <li>Instasell (low)</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/notifications</h3>
-                <p class="command-description">View and remove your current price alert notifications.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li>No parameters required</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/deathscoffer</h3>
-                <p class="command-description">Find the best items to sacrifice to deaths coffer.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>strategy</code> (choice): Select the buy strategy
-                            <ul>
-                                <li>Insta Buy (high price)</li>
-                                <li>Slow Buy (low price)</li>
-                            </ul>
-                        </li>
-                        <li><code>freshness_minutes</code> (integer, optional): Maximum age of price data in minutes (default: 30 minutes)</li>
-                        <li><code>minimum_difference</code> (integer, optional): Minimum difference (gp) between sacrifice and buy price (default: 20,000)</li>
-                        <li><code>min_price</code> (integer, optional): Minimum GE price for an item to be considered (default: 10,000)</li>
-                        <li><code>max_price</code> (integer, optional): Maximum GE price for an item to be considered (default: 100,000,000)</li>
-                        <li><code>min_margin_x_volume</code> (integer, optional): Minimum (margin x 24h volume) for an item to be considered (default: 2,000,000)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/uptime</h3>
-                <p class="command-description">Displays the current uptime of the bot.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li>No parameters required</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/checkstats</h3>
-                <p class="command-description">Check dump statistics for an item over a timeframe.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>item</code> (string): Item name or ID to check statistics for</li>
-                        <li><code>timeframe</code> (choice): Timeframe to analyze
-                            <ul>
-                                <li>1 Hour</li>
-                                <li>6 Hours</li>
-                                <li>12 Hours</li>
-                                <li>24 Hours</li>
-                                <li>7 Days</li>
-                                <li>All Time</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/find-margins-beta</h3>
-                <p class="command-description">Find the top 10 margins using current market prices.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>freshness_minutes</code> (integer, optional): Maximum age of price data in minutes (default: 60, max: 1440)</li>
-                        <li><code>min_margin</code> (integer, optional): Minimum margin threshold in GP (default: 1000)</li>
-                        <li><code>minimum_buy_price</code> (integer, optional): Minimum buy value in GP (default: 1)</li>
-                        <li><code>maximum_buy_price</code> (integer, optional): Maximum buy value in GP (default: 2,147,483,647)</li>
-                        <li><code>minimum_roi</code> (float, optional): Minimum ROI percentage (default: 2.0)</li>
-                        <li><code>sort_by_limit_profit</code> (boolean, optional): Sort by limit profit (default: False)</li>
-                        <li><code>min_margin_volume</code> (integer, optional): Minimum margin × volume score (default: 500,000, higher = more liquid items)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('flipping')">
-                Flipping Utility File Management Commands <span class="dropdown-arrow" id="flipping-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="flipping-cards">
-            
-            <div class="command-card">
-                <h3>/edit_flipping_file</h3>
-                <p class="command-description">Select and edit an item entry from a flipping JSON file.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>file</code> (attachment): Upload your flipping JSON file found at &lt;user&gt;/.runelite/flipping</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/combine_flipping_files</h3>
-                <p class="command-description">Upload multiple flipping JSON files and combine them into one.</p>
-            </div>
-
-            <div class="command-card">
-                <h3>/add_trade_entry</h3>
-                <p class="command-description">Add trade entries for an item to a flipping JSON file.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>file</code> (attachment): Upload your flipping JSON file</li>
-                        <li><code>item_name</code> (string): Name of the item to add trades for</li>
-                        <li><code>quantity</code> (integer): Quantity to add</li>
-                        <li><code>price</code> (integer): Price per item</li>
-                        <li><code>status</code> (string): Status (BOUGHT or SOLD)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="command-card">
-                <h3>/delete_trade_entries</h3>
-                <p class="command-description">Delete trade entries for an item from a flipping JSON file interactively.</p>
-                <div class="command-params">
-                    <h4>Parameters:</h4>
-                    <ul>
-                        <li><code>file</code> (attachment): Upload your flipping JSON file</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('notes')">
-                Notes <span class="dropdown-arrow" id="notes-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="notes-cards">
-            <div class="notes-section">
-                <ul>
-                    <li><strong>DM Only Commands:</strong> Some commands (like flipping utility commands) can only be used in direct messages with the bot, not in servers.</li>
-                    <li><strong>Autocomplete:</strong> Most commands support autocomplete for item names and other parameters.</li>
-                    <li><strong>Permissions:</strong> Some commands may require specific roles or permissions to use.</li>
-                    <li><strong>Hidden Commands:</strong> There are additional hidden commands available to administrators and bot owners that are not listed here as they are not intended for general use.</li>
-                </ul>
-            </div>
-            </div>
-        </section>
-
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('tips')">
-                Usage Tips <span class="dropdown-arrow" id="tips-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="tips-cards">
-            <div class="tips-section">
-                <ol>
-                    <li><strong>Item Names:</strong> You can use either item names or numeric IDs for most commands that require an item parameter.</li>
-                    <li><strong>Time Periods:</strong> For trend commands, use formats like "7d" (7 days), "24h" (24 hours), "1h" (1 hour), etc.</li>
-                    <li><strong>File Uploads:</strong> For flipping utility commands, make sure to upload valid JSON files from your RuneLite flipping folder.</li>
-                    <li><strong>Portfolio Management:</strong> Use the portfolio commands to track your investments and set price alerts.</li>
-                    <li><strong>Recipe Analysis:</strong> The recipe commands help you find profitable crafting opportunities in the current market.</li>
-                </ol>
-            </div>
-            </div>
-        </section>
-
-        <section class="command-section">
-            <h2 class="section-header" onclick="toggleSection('support')">
-                Support <span class="dropdown-arrow" id="support-arrow">▼</span>
-            </h2>
-            <div class="command-cards" id="support-cards">
-                <p>If you encounter any issues with these commands or need additional help, please contact the bot administrator or check the server's help channels.</p>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
-</div>
 
-<script>
-function toggleSection(sectionId) {
-    const cards = document.getElementById(sectionId + '-cards');
-    const arrow = document.getElementById(sectionId + '-arrow');
-    
-    if (cards.classList.contains('collapsed')) {
-        // Expand
-        cards.classList.remove('collapsed');
-        arrow.classList.remove('collapsed');
-        arrow.textContent = '▼';
-    } else {
-        // Collapse
-        cards.classList.add('collapsed');
-        arrow.classList.add('collapsed');
-        arrow.textContent = '▶';
-    }
-}
-
-// Initialize all sections as collapsed by default
-document.addEventListener('DOMContentLoaded', function() {
-    const sections = ['portfolio', 'price', 'recipe', 'decant', 'misc', 'flipping', 'notes', 'tips', 'support'];
-    sections.forEach(sectionId => {
+    <script>
+    function toggleSection(sectionId) {
         const cards = document.getElementById(sectionId + '-cards');
         const arrow = document.getElementById(sectionId + '-arrow');
-        if (cards && arrow) {
+        
+        if (cards.classList.contains('collapsed')) {
+            // Expand
+            cards.classList.remove('collapsed');
+            arrow.classList.remove('collapsed');
+            arrow.textContent = '▼';
+        } else {
+            // Collapse
             cards.classList.add('collapsed');
             arrow.classList.add('collapsed');
             arrow.textContent = '▶';
         }
+    }
+
+    // Initialize all sections as collapsed by default
+    document.addEventListener('DOMContentLoaded', function() {
+        const sections = ['portfolio', 'price', 'recipe', 'decant', 'misc', 'flipping', 'notes', 'tips', 'support'];
+        sections.forEach(sectionId => {
+            const cards = document.getElementById(sectionId + '-cards');
+            const arrow = document.getElementById(sectionId + '-arrow');
+            if (cards && arrow) {
+                cards.classList.add('collapsed');
+                arrow.classList.add('collapsed');
+                arrow.textContent = '▶';
+            }
+        });
     });
-});
-</script>
-{% endblock %}
+    </script>
 
-{% block extra_css %}
-<style>
-/* Dark theme styles */
-.commands-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #1a1a1a;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    color: #e0e0e0;
-}
+    <footer class="footer">
+        <p>&copy; 2024 OSRS Price Monitor. Data from RuneScape Wiki API.</p>
+    </footer>
 
-/* Section header styles */
-.section-header {
-    color: #ffffff;
-    font-size: 1.8em;
-    font-weight: 700;
-    margin-bottom: 25px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #333333;
-    position: relative;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.section-header::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #0099cc);
-}
-
-.section-header:hover {
-    color: #00d4ff;
-}
-
-.dropdown-arrow {
-    color: #00d4ff;
-    font-size: 0.8em;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-    user-select: none;
-    margin-left: 10px;
-}
-
-.dropdown-arrow.collapsed {
-    transform: rotate(-90deg);
-}
-
-/* Command cards container */
-.command-cards {
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.command-cards.collapsed {
-    max-height: 0;
-    opacity: 0;
-    margin-bottom: 0;
-}
-
-.commands-intro {
-    font-size: 1.2em;
-    color: #b0b0b0;
-    margin-bottom: 40px;
-    text-align: center;
-    line-height: 1.6;
-    font-weight: 400;
-}
-
-.command-section {
-    margin-bottom: 50px;
-}
-
-.command-section h2 {
-    color: #ffffff;
-    font-size: 1.8em;
-    font-weight: 700;
-    margin-bottom: 25px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid #333333;
-    position: relative;
-}
-
-.command-section h2::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #0099cc);
-}
-
-.command-card {
-    background: #2a2a2a;
-    border: 1px solid #404040;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.command-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-    border-color: #00d4ff;
-    background: #2f2f2f;
-}
-
-.command-card h3 {
-    color: #ffffff;
-    margin: 0 0 12px 0;
-    font-size: 1.4em;
-    font-weight: 700;
-    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-    background: linear-gradient(135deg, #00d4ff, #0099cc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.command-description {
-    color: #cccccc;
-    margin-bottom: 18px;
-    font-size: 1.1em;
-    line-height: 1.6;
-    font-weight: 400;
-}
-
-.command-params h4 {
-    color: #00d4ff;
-    margin: 0 0 12px 0;
-    font-size: 1.1em;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.command-params ul {
-    margin: 0;
-    padding-left: 24px;
-}
-
-.command-params li {
-    margin-bottom: 8px;
-    color: #b0b0b0;
-    line-height: 1.5;
-}
-
-.command-params code {
-    background: #1a1a1a;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-    color: #ff6b6b;
-    font-weight: 600;
-    border: 1px solid #404040;
-    font-size: 0.9em;
-}
-
-.command-params ul ul {
-    margin-top: 8px;
-    margin-bottom: 12px;
-}
-
-.command-params ul ul li {
-    color: #888888;
-    font-size: 0.95em;
-}
-
-.notes-section, .tips-section {
-    background: linear-gradient(135deg, #2a2a2a, #1f1f1f);
-    border-left: 4px solid #00d4ff;
-    padding: 24px;
-    border-radius: 0 12px 12px 0;
-    margin-top: 30px;
-}
-
-.notes-section h2, .tips-section h2 {
-    color: #ffffff;
-    font-size: 1.5em;
-    font-weight: 700;
-    margin-bottom: 20px;
-    border-bottom: none;
-}
-
-.notes-section h2::after, .tips-section h2::after {
-    display: none;
-}
-
-.notes-section ul, .tips-section ol {
-    margin: 0;
-    padding-left: 24px;
-}
-
-.notes-section li, .tips-section li {
-    margin-bottom: 12px;
-    color: #cccccc;
-    line-height: 1.6;
-}
-
-.notes-section strong, .tips-section strong {
-    color: #ffffff;
-    font-weight: 700;
-}
-
-.commands-page h1 {
-    color: #ffffff;
-    font-size: 2.5em;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, #00d4ff, #0099cc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* Override any light theme styles from base template */
-.commands-page * {
-    color: inherit;
-}
-
-@media (max-width: 768px) {
-    .commands-page {
-        padding: 15px;
-        margin: 10px;
-        border-radius: 8px;
-    }
-    
-    .commands-page h1 {
-        font-size: 2em;
-    }
-    
-    .command-card {
-        padding: 20px;
-    }
-    
-    .command-card h3 {
-        font-size: 1.3em;
-    }
-    
-    .command-section h2 {
-        font-size: 1.6em;
-    }
-}
-</style>
-{% endblock %}
+</body>
+</html>
