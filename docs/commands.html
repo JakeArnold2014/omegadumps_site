@@ -1,8 +1,332 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Bot Commands - OSRS Price Monitor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-{% block title %}Discord Bot Commands - OSRS Price Monitor{% endblock %}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
 
-{% block content %}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar {
+            background: #1a1a1a;
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #00d4ff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #888;
+            border-top: 1px solid #333;
+            margin-top: 3rem;
+        }
+
+        /* Dark theme styles */
+        .commands-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+        }
+
+        /* Section header styles */
+        .section-header {
+            color: #ffffff;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #333333;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #0099cc);
+        }
+
+        .section-header:hover {
+            color: #00d4ff;
+        }
+
+        .dropdown-arrow {
+            color: #00d4ff;
+            font-size: 0.8em;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            user-select: none;
+            margin-left: 10px;
+        }
+
+        .dropdown-arrow.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        /* Command cards container */
+        .command-cards {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .command-cards.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+        }
+
+        .commands-intro {
+            font-size: 1.2em;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+            text-align: center;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .command-section {
+            margin-bottom: 50px;
+        }
+
+        .command-card {
+            background: #2a2a2a;
+            border: 1px solid #404040;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .command-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: #00d4ff;
+            background: #2f2f2f;
+        }
+
+        .command-card h3 {
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            font-size: 1.4em;
+            font-weight: 700;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .command-description {
+            color: #cccccc;
+            margin-bottom: 18px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .command-params h4 {
+            color: #00d4ff;
+            margin: 0 0 12px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .command-params ul {
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        .command-params li {
+            margin-bottom: 8px;
+            color: #b0b0b0;
+            line-height: 1.5;
+        }
+
+        .command-params code {
+            background: #1a1a1a;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+            color: #ff6b6b;
+            font-weight: 600;
+            border: 1px solid #404040;
+            font-size: 0.9em;
+        }
+
+        .command-params ul ul {
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .command-params ul ul li {
+            color: #888888;
+            font-size: 0.95em;
+        }
+
+        .notes-section, .tips-section {
+            background: linear-gradient(135deg, #2a2a2a, #1f1f1f);
+            border-left: 4px solid #00d4ff;
+            padding: 24px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 30px;
+        }
+
+        .notes-section h2, .tips-section h2 {
+            color: #2d3748;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: none;
+        }
+
+        .notes-section h2::after, .tips-section h2::after {
+            display: none;
+        }
+
+        .notes-section ul, .tips-section ol {
+            margin: 0;
+            padding-left: 24px;
+        }
+
+        .notes-section li, .tips-section li {
+            margin-bottom: 12px;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        .notes-section strong, .tips-section strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .commands-page h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Override any light theme styles from base template */
+        .commands-page * {
+            color: inherit;
+        }
+
+        @media (max-width: 768px) {
+            .commands-page {
+                padding: 15px;
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .commands-page h1 {
+                font-size: 2em;
+            }
+            
+            .command-card {
+                padding: 20px;
+            }
+            
+            .command-card h3 {
+                font-size: 1.3em;
+            }
+            
+            .command-section h2 {
+                font-size: 1.6em;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">OSRS Price Monitor</a>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/list" class="nav-link">Item List</a></li>
+                <li><a href="/commands" class="nav-link">Commands</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
 <div class="container">
     <div class="commands-page">
         <h1>Discord Bot Commands Reference</h1>
